@@ -17,7 +17,7 @@ def SimpleGraph(list_par, x_line=None, show=True):
     return plt
 
 
-def MultiLayerGraph(rows, titles=None):
+def MultiLayerGraph(rows, x_line=None, titles=None):
     if not all(len(row) == len(rows[0]) for row in rows):
         raise ValueError("Different number of values")
 
@@ -31,7 +31,9 @@ def MultiLayerGraph(rows, titles=None):
     colors = itertools.cycle(['b', 'g', 'r', 'c', 'm', 'y', 'k'])
 
     for i, row in enumerate(rows):
-        axs[i].plot(row, color=next(colors))
+        if not x_line:
+            x_line = range(len(rows[0]))
+        axs[i].plot(x_line, row, color=next(colors))
         if titles:
             axs[i].set_title(titles[i])
         else:
